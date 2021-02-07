@@ -1,4 +1,4 @@
-# para realizar el entrenamiento necesitamos el modulo MLPClassifier
+# para realizar el entrenamiento de la red neuronal necesitamos el dependencia MLPClassifier
 from sklearn.neural_network import MLPClassifier
 from random import choice
 import os
@@ -24,50 +24,49 @@ def search_winner(p1, p2):
 
     return result
 # prueba para saber si funciona correctamente la funcion
-print(search_winner("piedra", "piedra"))
-print(search_winner("papel", "piedra"))
-print(search_winner("tijeras", "piedra"))
-print(search_winner("piedra", "tijeras"))
-print(search_winner("papel", "tijeras"))
-print(search_winner("tijeras", "tijeras"))
-print(search_winner("piedra", "papel"))
-print(search_winner("papel", "papel"))
-print(search_winner("tijeras", "papel"))
-print(search_winner("piedra", "piedra"))
-print(search_winner("piedra", "papel"))
-print(search_winner("piedra", "tijeras"))
-print(search_winner("tijeras", "piedra"))
-print(search_winner("tijeras", "papel"))
-print(search_winner("tijeras", "tijeras"))
-print(search_winner("papel", "piedra"))
-print(search_winner("papel", "papel"))
-print(search_winner("papel", "tijeras"))
-
-test = [
-    ["piedra", "piedra", 0],
-    ["piedra", "tijeras", 1],
-    ["piedra", "papel", 2]
-]
-
-for partida in test:
-    print("player1: %s player2: %s Winner: %s Validation: %s" % (
-        partida[0], partida[1], search_winner(
-            partida[0], partida[1]), partida[2]
-    ))
+# print(search_winner("piedra", "piedra"))
+# print(search_winner("papel", "piedra"))
+# print(search_winner("tijeras", "piedra"))
+# print(search_winner("piedra", "tijeras"))
+# print(search_winner("papel", "tijeras"))
+# print(search_winner("tijeras", "tijeras"))
+# print(search_winner("piedra", "papel"))
+# print(search_winner("papel", "papel"))
+# print(search_winner("tijeras", "papel"))
+# print(search_winner("piedra", "piedra"))
+# print(search_winner("piedra", "papel"))
+# print(search_winner("piedra", "tijeras"))
+# print(search_winner("tijeras", "piedra"))
+# print(search_winner("tijeras", "papel"))
+# print(search_winner("tijeras", "tijeras"))
+# print(search_winner("papel", "piedra"))
+# print(search_winner("papel", "papel"))
+# print(search_winner("papel", "tijeras"))
+# test = [
+#    ["piedra", "piedra", 0],
+#    ["piedra", "tijeras", 1],
+#    ["piedra", "papel", 2]
+#]
+# for partida in test:
+#    print("player1: %s player2: %s Winner: %s Validation: %s" % (
+#        partida[0], partida[1], search_winner(
+#            partida[0], partida[1]), partida[2]
+#    ))
 
 # definir una funcion para seleccionar un numero alzar con la cantidad de elementos de la opciones de juego
 def get_choice():
     return choice(options)
 
 # realizamos una prueba con opciones al alzar para comprobar si funciona la funcion 
-for i in range(10):
-    player1 = get_choice()
-    player2 = get_choice()
-    print("player1: %s player2: %s Winner: %s" % (
-        player1, player2, search_winner(player1, player2)
-    ))
+#for i in range(10):
+#    player1 = get_choice()
+#    player2 = get_choice()
+#    print("player1: %s player2: %s Winner: %s" % (
+#        player1, player2, search_winner(player1, player2)
+#    ))
 
-# como en la red neuronal trabaja con vectores o numeros hay que crear una especie de codificacion para que la red neuronal comprenda que cada valor signifique algo
+# como en la red neuronal trabaja con vectores o numeros hay que crear una especie de codificacion 
+# para que la red neuronal comprenda que cada valor signifique algo
 def str_to_list(option):
     if option == "piedra":
         res = [1, 0, 0]
@@ -146,13 +145,14 @@ def play_and_learn(iters=1000, debug=False):
     return score, data_x, data_y
 
 # realizamos el primer entremamiento de prueba para ver si funciona 
-score,data_x,data_y = play_and_learn(1,debug=False)
+# score,data_x,data_y = play_and_learn(1,debug=False)
 # print(data_x)
 # print(data_y)
-print("score: %s %s %%" % (score, (score["win"]*100/(score["win"]+score["loose"]))))
-# si en el entremamiento la red neuronal gano partidas entonces se entrena el modelo de nuevo para que aprenda esas nuevos conocimientos
-if len(data_x):
-    model = model.partial_fit(data_x,data_y)
+# print("score: %s %s %%" % (score, (score["win"]*100/(score["win"]+score["loose"]))))
+# si en el entremamiento la red neuronal gano partidas entonces se entrena el modelo de nuevo 
+# para que aprenda esas nuevos conocimientos
+# if len(data_x):
+#    model = model.partial_fit(data_x,data_y)
 
 # ahora realizamos el verdadero entrenamiento de de la red neuronal
 # establecemos una variables para saber cuantas iteraciones de aprendizaje de realizo
@@ -178,7 +178,8 @@ while True:
     if sum(historic_pct[-9:]) == 900:
         break
 
-file = open("curva de aprendizaje.csv", "w")
+# se guardan en un documento para expresar en una grafica como fue la curva de aprendizaje de la red neuronal
+file = open("linea de aprendizaje.csv", "w")
 for i in range(len(historic_pct)):
     file.write("%s;%s\n" % (i,historic_pct[i]))
 file.close()
